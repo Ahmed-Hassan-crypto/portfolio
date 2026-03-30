@@ -380,7 +380,7 @@ body::after {
 .hero-name {
     font-family: var(--font-display);
     font-size: clamp(3.5rem, 10vw, 8rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: .95;
     letter-spacing: -.03em;
     opacity: 0;
@@ -1013,51 +1013,400 @@ body::after {
     min-height: 100vh
 }
 
-@media(max-width:768px) {
+/* ── Hamburger Toggle Button ── */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 200;
+    -webkit-tap-highlight-color: transparent
+}
 
-    .ab-grid,
-    .ab-bot {
+.hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform .35s cubic-bezier(.4, 0, .2, 1),
+        opacity .25s ease,
+        background .3s ease
+}
+
+.nav-toggle.active .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: var(--primary)
+}
+
+.nav-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0)
+}
+
+.nav-toggle.active .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: var(--primary)
+}
+
+/* ── Large Desktop (no changes needed) ── */
+
+/* ── Tablet / Small Desktop ── */
+@media (max-width: 1024px) {
+    .si {
+        max-width: 900px
+    }
+
+    .ab-grid {
         grid-template-columns: 1fr;
         gap: 2rem
     }
 
+    .pj-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+    }
+
+    #nav-dots {
+        right: .8rem
+    }
+
+    .section {
+        padding: 5rem 1.5rem
+    }
+}
+
+/* ── Mobile / Small Tablet ── */
+@media (max-width: 768px) {
+
+    /* Hamburger toggle visible */
+    .nav-toggle {
+        display: flex
+    }
+
+    /* Mobile nav panel */
+    .h-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        background: rgba(11, 11, 15, 0.97);
+        -webkit-backdrop-filter: blur(30px);
+        backdrop-filter: blur(30px);
+        padding: 5rem 2rem 2.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity .4s cubic-bezier(.4, 0, .2, 1),
+            visibility .4s,
+            transform .4s cubic-bezier(.4, 0, .2, 1);
+        z-index: 150;
+        border-bottom: 1px solid var(--border)
+    }
+
+    .h-nav.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0)
+    }
+
+    .h-nav a {
+        font-size: 1.1rem;
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        letter-spacing: .08em;
+        color: var(--text);
+        transition: color .3s, background .3s
+    }
+
+    .h-nav a:last-child {
+        border-bottom: none;
+        margin-top: .5rem
+    }
+
+    .h-nav a:hover,
+    .h-nav a:active {
+        color: var(--primary);
+        background: rgba(212, 160, 23, 0.04)
+    }
+
+    .h-nav .btn-h {
+        margin-top: 1.5rem;
+        padding: .75rem 2.5rem;
+        border-radius: 8px;
+        width: auto;
+        background: var(--primary);
+        color: var(--dark) !important;
+        border-color: var(--primary);
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: .06em;
+        transition: background .3s, transform .3s
+    }
+
+    .h-nav .btn-h:hover,
+    .h-nav .btn-h:active {
+        background: #e8b52a;
+        transform: scale(1.03);
+        color: var(--dark) !important
+    }
+
+    /* Header */
+    #site-header {
+        padding: .8rem 1.2rem;
+        background: rgba(11, 11, 15, 0.9);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px)
+    }
+
+    /* Hide nav dots on mobile */
+    #nav-dots {
+        display: none
+    }
+
+    /* Sections */
+    .section {
+        padding: 5rem 1.2rem;
+        min-height: auto
+    }
+
+    #hero {
+        min-height: 100vh;
+        min-height: 100dvh
+    }
+
+    /* Hero */
+    .hero-name {
+        font-size: clamp(2.8rem, 12vw, 4.5rem)
+    }
+
+    .hero-sub {
+        font-size: .95rem;
+        padding: 0 .5rem
+    }
+
+    .cta-g {
+        flex-direction: column;
+        align-items: center;
+        gap: .8rem
+    }
+
+    .cta-g .btn {
+        width: 100%;
+        max-width: 260px;
+        justify-content: center
+    }
+
+    /* About */
+    .ab-grid,
+    .ab-bot {
+        grid-template-columns: 1fr;
+        gap: 1.5rem
+    }
+
     .stats-r {
+        grid-template-columns: repeat(3, 1fr);
         gap: .6rem
     }
 
     .stat-c {
-        padding: .8rem
+        padding: .8rem .5rem
     }
 
     .stat-v {
         font-size: 1.5rem
     }
 
-    .sk-grid,
+    .stat-l {
+        font-size: .65rem
+    }
+
+    /* Skills */
+    .sk-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem
+    }
+
+    .sk-c {
+        padding: 1.2rem
+    }
+
+    /* Projects */
     .pj-grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        gap: 1.2rem
     }
 
-    .section {
-        padding: 5rem 1.2rem
+    /* Timeline */
+    .tl {
+        padding-left: 2rem
     }
 
-    #nav-dots,
-    .h-nav {
-        display: none
+    .tl-dot {
+        left: -2rem
     }
 
-    #site-header {
-        padding: .8rem 1.2rem
+    .tl-co {
+        font-size: 1.05rem
     }
 
-    .cta-g {
-        flex-direction: column;
-        align-items: center
+    .tl-desc li {
+        font-size: .8rem
+    }
+
+    /* Contact */
+    .ct-content {
+        max-width: 100%
+    }
+
+    .ct-lk {
+        padding: 1rem 1.2rem
+    }
+
+    .ct-lk .cl-v {
+        font-size: .85rem;
+        word-break: break-all
+    }
+
+    /* Section headings */
+    .sh {
+        margin-bottom: 2rem
+    }
+
+    .sh h2 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem)
+    }
+
+    /* Footer */
+    .site-footer {
+        padding: 1.5rem 1rem
     }
 }
 
-@media(prefers-reduced-motion:reduce) {
+/* ── Very Small Screens ── */
+@media (max-width: 480px) {
+    #site-header {
+        padding: .7rem 1rem
+    }
+
+    .h-logo {
+        font-size: 1rem
+    }
+
+    .hero-name {
+        font-size: clamp(2.2rem, 14vw, 3.5rem)
+    }
+
+    .hero-label {
+        font-size: .65rem;
+        padding: .3rem 1rem
+    }
+
+    .hero-sub {
+        font-size: .85rem
+    }
+
+    .section {
+        padding: 4rem 1rem
+    }
+
+    .stats-r {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: .4rem
+    }
+
+    .stat-v {
+        font-size: 1.2rem
+    }
+
+    .stat-l {
+        font-size: .6rem
+    }
+
+    .info-c {
+        padding: 1.2rem
+    }
+
+    .hk-grid {
+        gap: .3rem
+    }
+
+    .hk-b {
+        font-size: .62rem;
+        padding: .2rem .5rem
+    }
+
+    .tl {
+        padding-left: 1.5rem
+    }
+
+    .tl-dot {
+        left: -1.5rem;
+        width: 10px;
+        height: 10px
+    }
+
+    .tl-co {
+        font-size: .95rem
+    }
+
+    .tl-role {
+        font-size: .78rem
+    }
+
+    .tl-desc li {
+        font-size: .75rem
+    }
+
+    .pj-body {
+        padding: 1.2rem
+    }
+
+    .pj-body h3 {
+        font-size: 1rem
+    }
+
+    .pj-body p {
+        font-size: .78rem
+    }
+
+    .ct-lk {
+        padding: .9rem 1rem;
+        gap: .75rem
+    }
+
+    .ct-lk i {
+        font-size: .95rem
+    }
+
+    .soc-lk {
+        width: 40px;
+        height: 40px
+    }
+
+    .cta-g .btn {
+        max-width: 240px;
+        padding: .65rem 1.5rem;
+        font-size: .85rem
+    }
+
+    .scroll-hint {
+        bottom: 1.5rem
+    }
+}
+
+/* ── Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,

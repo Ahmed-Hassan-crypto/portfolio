@@ -10,6 +10,39 @@ function dismissLoader() {
 }
 setTimeout(dismissLoader, FORCE_DISMISS);
 
+/* ── Mobile Navigation Toggle ── */
+const navToggle = document.getElementById('nav-toggle');
+const hNav = document.getElementById('h-nav');
+
+if (navToggle && hNav) {
+    navToggle.addEventListener('click', () => {
+        const isOpen = hNav.classList.toggle('open');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Close menu when a nav link is clicked
+    hNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hNav.classList.remove('open');
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (hNav.classList.contains('open') && !hNav.contains(e.target) && !navToggle.contains(e.target)) {
+            hNav.classList.remove('open');
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
 /* ── State ── */
 let scrollProg = 0;
 const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
